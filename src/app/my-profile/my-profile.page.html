@@ -1,0 +1,71 @@
+<ion-content class="main_container">
+  <ion-row class="custom_toolbar">
+    <ion-toolbar color="light_background">
+      <span class="header_span" routerLink="/dashboard">
+        <i class="fas fa-angle-left fa-fw"></i>
+      </span>
+    </ion-toolbar>
+  </ion-row>
+ 
+
+
+  <div>
+    <form #update_form="ngForm" class="form">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item lines="none">
+              <ion-label position="floating"> Full Name</ion-label>
+              <ion-input type="text" [(ngModel)]="session_data.full_name" name="full_name" required></ion-input>
+              <ion-text class="error_msg" color="danger" *ngIf="full_name"> This field is required</ion-text>
+            </ion-item>
+          </ion-col>
+         
+
+          <ion-col size="12">
+            <ion-item lines="none">
+              <ion-label position="floating">Email</ion-label>
+              <ion-input type="email" [(ngModel)]="session_data.email" ngModel name="email" required></ion-input>
+              <ion-text class="error_msg" color="danger" *ngIf="email"> This field is required</ion-text>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="12">
+            <ion-item lines="none">
+              <ion-label position="floating">Address</ion-label>
+              <ion-input type="text" [(ngModel)]="session_data.address" ngModel name="address" required></ion-input>
+              <ion-text class="error_msg" color="danger" *ngIf="address"> This field is required</ion-text>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="12">
+            <ion-item lines="none">
+              <ion-label position="floating">pincode</ion-label>
+              <ion-input type="number" [(ngModel)]="session_data.pincode" ngModel name="pincode" required></ion-input>
+              <ion-text class="error_msg" color="danger" *ngIf="pincode"> Enter 6 digit pincode</ion-text>
+            </ion-item>
+          </ion-col>
+          </ion-row>
+
+        
+
+        <ion-row class="last_row footerbtn">
+          <ion-col size="12">
+            <ion-button color="secondary" expand="block" (click)="update_profile(update_form)">
+              Update Profile
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </form>
+  </div>
+
+
+  <div class="loader" *ngIf="loader_visibility">
+    <svg class="spinner" width="65px" height="65px" viewBox="0 0 50 50">
+      <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+    </svg>
+  </div>
+
+</ion-content>

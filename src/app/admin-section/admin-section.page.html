@@ -1,0 +1,90 @@
+<ion-content>
+  <ion-row class="custom_toolbar">
+    <ion-toolbar color="light_background">
+      <span class="header_span" routerLink="/dashboard">
+        <i class="fas fa-angle-left fa-fw"></i>
+      </span>
+    </ion-toolbar>
+  </ion-row>
+  <ion-row>
+    <ion-label class="top_heading">Admin Dashboard</ion-label>
+  </ion-row>
+
+  <ion-row>
+
+    <ion-col size="6" routerLink="/resell-request-list">
+      <div class="colordiv red">
+        <div class="icon">
+          <i class="fas fa-undo-alt fa-fw"></i>
+        </div>
+        <div class="count">
+          {{count.resell_product_request }}
+        </div>
+        <div class="description">
+         Resell Order Request
+        </div>      
+      </div>
+    </ion-col> 
+    
+    <ion-col size="6" routerLink="/service-request-list">
+      <div class="colordiv pink">
+        <div class="icon">
+          <i class="fas fa-cogs fa-fw"></i>
+        </div>
+        <div class="count">
+          {{count.service_requests }}
+        </div>
+        <div class="description">
+          Request for Service
+        </div>      
+      </div>
+    </ion-col>
+
+    <ion-col size="6" routerLink="/installation-request-list">
+      <div class="colordiv blue">
+        <div class="icon">
+          <i class="fas fa-cart-arrow-down fa-fw"></i>
+        </div>
+        <div class="count">
+          {{count.installation_requests }}
+        </div>
+        <div class="description">
+          Request for Installation
+        </div>
+      
+      </div>
+    </ion-col>
+
+
+    <ion-col size="6" routerLink="/accessory-request-list">
+      <div class="colordiv yellow">
+        <div class="icon">
+          <i class="fas fa-plug fa-fw"></i>
+        </div>
+        <div class="count">
+          {{count.accessory_order }}
+        </div>
+        <div class="description">
+          Buy Accessories
+        </div>
+      </div>
+    </ion-col>
+
+    <ion-col size="6" routerLink="/extend-warranty-request-list">
+      <div class="colordiv green">
+        <div class="icon">
+          <i class="fas fa-hand-holding-heart fa-fw"></i>
+        </div>
+        <div class="count">
+         {{count.extend_warranties }}
+        </div>
+        <div class="description">
+          Extend Warrenty
+        </div>
+      </div>
+    </ion-col>
+
+
+  </ion-row>
+
+</ion-content>

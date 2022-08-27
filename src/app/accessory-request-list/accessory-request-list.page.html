@@ -1,0 +1,100 @@
+<ion-content>
+  <ion-row class="custom_toolbar">
+    <ion-toolbar color="light_background">
+      <span class="header_span" routerLink="/admin-section">
+        <i class="fas fa-angle-left fa-fw"></i>
+      </span>
+    </ion-toolbar>
+  </ion-row>
+
+  <ion-row>
+    <ion-card class="skeletoncard animate_card" *ngFor="let d of accessory_request_list; let i=index;">
+      <ion-card-content>
+        <ion-row class="cardtop">
+
+          <ion-col size="11">
+            <div class="doc_name appointment_id">Order ID : {{d.order_id}} </div>
+          </ion-col>
+          <ion-col size="1">
+            <span class="downarrow" id="downarrowaccessory_request_list{{i}}"
+              (click)="toggle_div('accessory_request_list'+i)">
+              <i class="fas fa-angle-down"></i>
+            </span>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="section" id="collapsibleaccessory_request_list{{i}}">
+          <ion-col size="12">
+            <div class="doc_category">Order Date : {{d.created_at}}</div>
+               <div class="doc_category">Appliance Name : {{d.appliance_name}}</div>
+            <div class="doc_category">Accessory Name : {{d.accessory_name}}</div>
+            <hr>
+            <div class="doc_category">User Name : {{d.full_name}}</div>
+            <div class="doc_category">Mobile No : {{d.mobile}}</div>         
+            <div class="doc_category">Address : {{d.address}}, {{d.pincode}}</div>
+
+          </ion-col>
+
+          <ion-col size="12">
+            <ion-text *ngIf="d.status==1"><i class="fas fa-hourglass fa-fw warning_dot"></i> <span class="warning">
+                Request Processing</span> </ion-text>
+            <ion-text *ngIf="d.status==2"><i class="fas fa-check fa-fw active_dot"></i> <span class="active">
+                Request Accepted</span> </ion-text>
+            <ion-text *ngIf="d.status==3"><i class="fas fa-check-double fa-fw success_dot"></i> <span class="success">
+                Order Delivered</span> </ion-text>
+            <ion-text *ngIf="d.status==0"><i class="fas fa-times fa-fw cancel"></i><span class="cancel"> Request
+                canceled</span> </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row class="opd_card_footer">
+
+          <ion-col size="4" class="tooltip2">
+            <ion-button expand="block" [disabled]="d.status==0 || d.status==3" size="small" shape="round" color="danger"
+              (click)="change_status(i,d.id,'0')" class="grey">
+              <i class="fas fa-times fa-fw"></i>
+            </ion-button>
+          </ion-col>
+
+          <ion-col size="4" class="tooltip2">
+            <ion-button expand="block" [disabled]="d.status!=1" size="small" shape="round"
+              color="primary" (click)="change_status(i,d.id,'2')" class="grey">
+              <i class="fas fa-check fa-fw"></i>
+            </ion-button>
+          </ion-col>
+
+          <ion-col size="4" class="tooltip2">
+            <ion-button expand="block" [disabled]="d.status==0 || d.status==3" size="small" shape="round"
+              color="success" (click)="change_status(i,d.id,'3')" class="grey">
+              <i class="fas fa-check-circle fa-fw"></i>
+            </ion-button>
+          </ion-col>
+
+
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+  </ion-row>
+  <ion-row class="load_more" *ngIf="show_more">
+    <ion-label (click)="load_more()">Load More ....</ion-label>
+  </ion-row> 
+  
+  <ion-row class="load_more" *ngIf="no_more">
+    <ion-label class="l2">No More Records Found</ion-label>
+  </ion-row>
+  <ion-row *ngIf="accessory_request_list_length">
+    <ion-col size="12">
+      <div class="image_container">
+        <img src="assets/svg/no_member.svg" alt="">
+      </div>
+    </ion-col>
+    <ion-col size="12" class="not_found">
+      <ion-text>You don't have any request received yet.</ion-text>
+    </ion-col>
+  </ion-row>
+  <div class="loader" *ngIf="loader_visibility">
+    <svg class="spinner" width="65px" height="65px" viewBox="0 0 50 50">
+      <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+    </svg>
+  </div>
+</ion-content>

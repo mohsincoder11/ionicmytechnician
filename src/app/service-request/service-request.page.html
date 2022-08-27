@@ -1,0 +1,96 @@
+<ion-content class="main_container">
+  <ion-row class="custom_toolbar">
+    <ion-toolbar color="light_background">
+      <span class="header_span" routerLink="/dashboard">
+        <i class="fas fa-angle-left fa-fw"></i>
+      </span>
+    </ion-toolbar>
+  </ion-row>
+
+
+
+  <div>
+    <form #form_register="ngForm" class="form">
+      <ion-grid>
+
+        <h2>Generate Service Request!</h2>
+        <p>Fill this form for raise request for service.</p>
+        <ion-row>
+
+          <ion-col size="12">
+            <ion-item lines="none">
+              <ion-label position="floating"> Brand Name</ion-label>
+              <ion-input type="text" ngModel name="brand_name" required brand_name></ion-input>
+              <ion-text class="error_msg" color="danger" *ngIf="brand_name"> This field is required</ion-text>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="12">
+            <ion-item lines="none">
+              <ion-label position="floating"> Select Appliance</ion-label>
+              <ion-select placeholder="Select Appliance" ngModel id="appliance_id" name="appliance_id"
+                (ionChange)="get_accessory($event)">
+                <ion-select-option *ngFor="let a of all_appliance;let i=index" value="{{a.id}}">
+                  {{a.appliance_name}}
+                </ion-select-option>
+              </ion-select>
+              <ion-text class="error_msg" color="danger" *ngIf="appliance_id"> This field is required</ion-text>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="12">
+            <ion-item lines="none">
+              <ion-label position="floating"> Select Accessory</ion-label>
+              <ion-select placeholder="Select Accessory" ngModel multiple="true" id="accessory" name="accessory">
+                <ion-select-option *ngFor="let a of filter_accessories;let i=index" value="{{a.id}}">
+                  {{a.accessory_name}}
+                </ion-select-option>
+              </ion-select>
+              <ion-text class="error_msg" color="danger" *ngIf="accessory"> This field is required</ion-text>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="12">
+            <ion-item lines="none">
+              <ion-label position="floating">Date of Purchase</ion-label>
+              <ion-datetime [(ngModel)]="currentDate" displayFormat="DD-MM-YYYY" name="date_of_purchase"></ion-datetime>
+            </ion-item>
+          </ion-col>
+           <ion-col size="12">
+          <ion-item lines="none">
+            <ion-label position="floating">Explain Issue</ion-label>
+            <ion-textarea rows="2" name="type_of_problem" ngModel></ion-textarea>
+            <ion-text class="error_msg" color="danger" *ngIf="type_of_problem"> This field is required.
+            </ion-text>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item lines="none">
+            <ion-text class="visit_charge">Note: Whether the product gets repaired or not, the visiting charges will be <b> &#8377; 250</b>.</ion-text>
+          </ion-item>
+        </ion-col>
+
+        </ion-row>
+
+       
+
+        <ion-row class="last_row footerbtn">
+          <ion-col size="12">
+            <ion-button color="secondary" expand="block" (click)="submit_request(form_register)">
+              Submit Request
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </form>
+  </div>
+
+  <div class="loader" *ngIf="loader_visibility">
+    <svg class="spinner" width="65px" height="65px" viewBox="0 0 50 50">
+      <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+    </svg>
+  </div>
+
+</ion-content>

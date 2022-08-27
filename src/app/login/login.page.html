@@ -1,0 +1,60 @@
+<ion-content class="main_container">
+  <div class="image_container">
+    <img src="assets/svg/undraw_Access_account_re_8spm.svg"   alt="">
+  </div>
+
+
+<div>
+<form  #form_login="ngForm" class="form">
+  <ion-grid >
+    
+    <h2>Welcome Back !</h2>
+<p>Sign in to your account</p>
+    <ion-row>
+      
+      <ion-col size="12">
+          <ion-item lines="none">
+            <ion-label position="floating"> Mobile No</ion-label>
+            <ion-input type="number" ngModel name="mobile" ></ion-input>
+            <ion-text class="error_msg" color="danger" *ngIf="mobile_length">Enter 10 digit mobile number.</ion-text>
+
+          </ion-item>
+        </ion-col>
+        <ion-col size="12">
+        
+          <ion-item lines="none">
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" ngModel name="password" ></ion-input>
+            <ion-text class="error_msg"  color="danger" *ngIf="password"> This field is required</ion-text>
+
+          </ion-item>
+        </ion-col>
+    </ion-row>
+  
+
+    <ion-row class="last_row">
+      <ion-col size="12">
+        
+        <ion-button color="primary" expand="block" (click)="log_in(form_login)">
+          Sign In
+        </ion-button>
+         <div routerLink='/forgot-password'> <label class="forgot">Forgot password ?</label></div>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-button color="primary" expand="block" fill="outline" routerLink="/register">
+          Create Account
+        </ion-button><br>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</form>
+</div>
+
+
+<div class="loader" *ngIf="loader_visibility">
+  <svg class="spinner" width="65px" height="65px" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>
+</div>
+ 
+</ion-content>
+

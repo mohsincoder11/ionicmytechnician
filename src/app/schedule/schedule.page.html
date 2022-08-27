@@ -1,0 +1,437 @@
+<ion-content [scrollEvents]="true">
+  <ion-grid class="padding_bottom">
+    <ion-row class="custom_toolbar">
+      <ion-toolbar color="light_background">
+        <span class="header_span" routerLink="/dashboard">
+          <i class="fas fa-angle-left fa-fw"></i>
+        </span>
+      </ion-toolbar>
+    </ion-row>
+    <!-- <ion-row class="shedule_button">
+      <ion-col size="3" class="col" id="service_request" (click)="get_records('service_request')">
+        Service Request
+      </ion-col>
+      <ion-col size="3" class="col" id="installation_request" (click)="get_records('installation_request')">
+        Installation Request
+      </ion-col>
+      <ion-col size="3" class="col" id="accessory_request" (click)="get_records('accessory_request')">
+        Accessory
+      </ion-col>
+      <ion-col size="3" class="col" id="extend_warranty_request" (click)="get_records('extend_warranty_request')">
+        Extend Warrenty
+      </ion-col>
+    </ion-row> -->
+    <ion-row>
+      <div class="scrollbar" scrollX="true">
+        <span [ngClass]="['calender_Date']" id="resell_product_request" (click)="get_records('resell_product_request')">
+          <span>Resell Product </span>
+        </span>
+        <span [ngClass]="['calender_Date']" id="service_request" (click)="get_records('service_request')">
+          <span>Service Request</span>
+        </span>
+        <span [ngClass]="['calender_Date']" id="installation_request" (click)="get_records('installation_request')">
+          <span> Installation Request</span>
+        </span>
+        <span [ngClass]="['calender_Date']" id="accessory_request" (click)="get_records('accessory_request')">
+          <span>Accessory Order</span>
+        </span>
+
+        <span [ngClass]="['calender_Date']" id="extend_warranty_request"
+          (click)="get_records('extend_warranty_request')">
+          <span>Extend Warrenty</span>
+        </span>
+
+
+      </div>
+    </ion-row>
+
+
+    <span class="visibility" id="visibility_resell_product_request">
+      <ion-row>
+        <ion-card class="skeletoncard animate_card" *ngFor="let d of resell_product_request; let i=index;">
+          <ion-card-content>
+            <ion-row class="cardtop">
+
+              <ion-col size="11">
+                <div class="doc_name appointment_id">Order ID : {{d.order_id}} </div>
+              </ion-col>
+              <ion-col size="1">
+                <span class="downarrow" id="downarrowresell_product_request{{i}}"
+                  (click)="toggle_div('resell_product_request'+i)">
+                  <i class="fas fa-angle-down"></i>
+                </span>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="section" id="collapsibleresell_product_request{{i}}">
+              <ion-col size="12">
+                <div class="doc_category">Brand Name : {{d.brand_name}}</div>
+                <div class="doc_category">Product Name : {{d.product_name}}</div>
+                <div class="doc_category">Price : &#8377; {{d.price}} </div>
+                <div class="doc_category">Warranty : {{d.warranty}} Month from date of purchase</div>
+              </ion-col>
+
+              <ion-col size="12">
+                <ion-text *ngIf="d.status==1"><i class="fas fa-hourglass fa-fw warning_dot"></i> <span class="warning">
+                    Request Processing</span> </ion-text>
+                <ion-text *ngIf="d.status==2"><i class="fas fa-check fa-fw active_dot"></i> <span class="active">
+                    Request Accepted</span> </ion-text>
+                <ion-text *ngIf="d.status==3"><i class="fas fa-check-double fa-fw success_dot"></i> <span
+                    class="success"> Order Delivered</span> </ion-text>
+                <ion-text *ngIf="d.status==0"><i class="fas fa-times fa-fw cancel"></i><span class="cancel"> Request
+                    canceled</span> </ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row class="opd_card_footer">
+              <ion-col size="6" class="tooltip2">
+                <ion-button expand="block" size="small" routerLink="/resellproduct">Buy Again</ion-button>
+              </ion-col>
+              <ion-col size="6" class="tooltip2" *ngIf="d.status!=3">
+                <ion-button expand="block" [disabled]="d.status!=1 && d.status!=3" size="small" color="greybutton"
+                  (click)="cancel_request(i,d.id,'resell_product_request')" class="grey">
+                  Cancel
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="6" class="tooltip2" *ngIf="d.rating!=null">
+                <ion-button expand="block" fill="clear" size="small" color="dark"> Rated :
+                  <i class="fas fa-star fa-fw star_color"></i>{{d.rating}}
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="6" class="tooltip2" *ngIf="d.rating==null && d.status==3">
+                <ion-button expand="block" fill="clear" size="small" color="dark"
+                  (click)="rate_technician(i,'resell_product_request',d.id)">Rate Service</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-row>
+
+      <ion-row *ngIf="resell_product_request_length">
+        <ion-col size="12">
+          <div class="image_container">
+            <img src="assets/svg/no_member.svg" alt="">
+          </div>
+        </ion-col>
+        <ion-col size="12" class="not_found">
+          <ion-text>You don't have any resell order placed.</ion-text>
+        </ion-col>
+      </ion-row>
+    </span>
+
+    <span class="visibility" id="visibility_service_request">
+      <ion-row>
+        <ion-card class="skeletoncard animate_card" *ngFor="let d of service_request; let i=index;" id="card{{d.id}}">
+          <ion-card-content>
+            <ion-row class="cardtop">
+              <ion-col size="11">
+                <div class="doc_name appointment_id">Service ID : {{d.service_code}} </div>
+              </ion-col>
+              <ion-col size="1">
+                <span class="downarrow" id="downarrowservice_request{{i}}" (click)="toggle_div('service_request'+i)">
+                  <i class="fas fa-angle-down"></i>
+                </span>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="section" id="collapsibleservice_request{{i}}">
+              <ion-col size="12">
+                <div class="doc_category">Brand : {{d.brand_name}}</div>
+                <div class="doc_category">Appliance Name : {{d.appliance_name}}</div>
+                <div class="doc_category">Purchase Date : {{d.date_of_purchase}}</div>
+                <div class="doc_category">Accessory : {{d.accessory_name}}</div>
+                <div class="doc_category">Problem : {{d.type_of_problem}}</div>
+
+              </ion-col>
+
+              <ion-col size="12">
+                <ion-text *ngIf="d.status==1"><i class="fas fa-hourglass fa-fw warning_dot"></i> <span class="warning">
+                    Request Processing</span> </ion-text>
+                <ion-text *ngIf="d.status==2"><i class="fas fa-check fa-fw active_dot"></i> <span class="active">
+                    Request Accepted</span> </ion-text>
+                <ion-text *ngIf="d.status==3"><i class="fas fa-check-double fa-fw success_dot"></i> <span
+                    class="success"> Request Completed</span> </ion-text>
+                <ion-text *ngIf="d.status==0"><i class="fas fa-times fa-fw cancel"></i><span class="cancel"> Request
+                    canceled</span> </ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row class="opd_card_footer">
+              <ion-col size="6" class="tooltip2">
+                <ion-button expand="block" size="small" routerLink="/service-request">Book Again</ion-button>
+              </ion-col>
+
+              <ion-col size="6" class="tooltip2" *ngIf="d.status!=3">
+                <ion-button expand="block" [disabled]="d.status!=1 && d.status!=3" size="small" color="greybutton"
+                  (click)="cancel_request(i,d.id,'service_request')" class="grey">
+                  Cancel
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="6" class="tooltip2" *ngIf="d.rating!=null">
+                <ion-button expand="block" fill="clear" size="small" color="dark"> Rated :
+                  <i class="fas fa-star fa-fw star_color"></i>{{d.rating}}
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="6" class="tooltip2" *ngIf="d.rating==null && d.status==3">
+                <ion-button expand="block" fill="clear" size="small" color="dark"
+                  (click)="rate_technician(i,'service_request',d.id)">Rate Service</ion-button>
+              </ion-col>
+
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-row>
+
+      <ion-row *ngIf="service_request_length">
+        <ion-col size="12">
+          <div class="image_container">
+            <img src="assets/svg/no_member.svg" alt="">
+          </div>
+        </ion-col>
+        <ion-col size="12" class="not_found">
+          <ion-text>You don't have any service request placed.</ion-text>
+        </ion-col>
+      </ion-row>
+    </span>
+
+    <span class="visibility" id="visibility_installation_request">
+      <ion-row>
+        <ion-card class="skeletoncard animate_card" *ngFor="let d of installation_request; let i=index;"
+          id="card{{d.id}}">
+          <ion-card-content>
+            <ion-row class="cardtop">
+              <ion-col size="11">
+                <div class="doc_name appointment_id">Service ID : {{d.service_code}} </div>
+              </ion-col>
+              <ion-col size="1">
+                <span class="downarrow" id="downarrowinstallation_request{{i}}"
+                  (click)="toggle_div('installation_request'+i)">
+                  <i class="fas fa-angle-down"></i>
+                </span>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="section" id="collapsibleinstallation_request{{i}}">
+              <ion-col size="12">
+                <div class="doc_category">Brand : {{d.brand_name}}</div>
+                <div class="doc_category">Appliance Name : {{d.appliance_name}}</div>
+                <div class="doc_category">Purchase Date : {{d.date_of_purchase}}</div>
+                <div class="doc_category">Accessory : {{d.accessory_name}}</div>
+                <div class="doc_category">Specific Requirement : {{d.specific_requirement}}</div>
+              </ion-col>
+
+              <ion-col size="12">
+                <ion-text *ngIf="d.status==1"><i class="fas fa-hourglass fa-fw warning_dot"></i> <span class="warning">
+                    Request Processing</span> </ion-text>
+                <ion-text *ngIf="d.status==2"><i class="fas fa-check fa-fw active_dot"></i> <span class="active">
+                    Request Accepted</span> </ion-text>
+                <ion-text *ngIf="d.status==3"><i class="fas fa-check-double fa-fw success_dot"></i> <span
+                    class="success"> Request Completed</span> </ion-text>
+                <ion-text *ngIf="d.status==0"><i class="fas fa-times fa-fw cancel"></i><span class="cancel"> Request
+                    canceled</span> </ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row class="opd_card_footer">
+              <ion-col size="6" class="tooltip2">
+                <ion-button expand="block" size="small" routerLink="/installation-request">Book Again</ion-button>
+              </ion-col>
+              <ion-col size="6" class="tooltip2" *ngIf="d.status!=3">
+                <ion-button expand="block" [disabled]="d.status!=1 && d.status!=3" size="small" color="greybutton"
+                  (click)="cancel_request(i,d.id,'installation_request')" class="grey">
+                  Cancel
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="6" class="tooltip2" *ngIf="d.rating!=null">
+                <ion-button expand="block" fill="clear" size="small" color="dark"> Rated :
+                  <i class="fas fa-star fa-fw star_color"></i>{{d.rating}}
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="6" class="tooltip2" *ngIf="d.rating==null && d.status==3">
+                <ion-button expand="block" fill="clear" size="small" color="dark"
+                  (click)="rate_technician(i,'installation_request',d.id)">Rate Service</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-row>
+
+      <ion-row *ngIf="installation_request_length">
+        <ion-col size="12">
+          <div class="image_container">
+            <img src="assets/svg/no_member.svg" alt="">
+          </div>
+        </ion-col>
+        <ion-col size="12" class="not_found">
+          <ion-text>You don't have any installation request placed.</ion-text>
+        </ion-col>
+      </ion-row>
+    </span>
+
+
+
+    <span class="visibility" id="visibility_accessory_request">
+      <ion-row>
+        <ion-card class="skeletoncard animate_card" *ngFor="let d of accessory_request; let i=index;">
+          <ion-card-content>
+            <ion-row class="cardtop">
+
+              <ion-col size="11">
+                <div class="doc_name appointment_id">Order ID : {{d.order_id}} </div>
+              </ion-col>
+              <ion-col size="1">
+                <span class="downarrow" id="downarrowaccessory_request{{i}}"
+                  (click)="toggle_div('accessory_request'+i)">
+                  <i class="fas fa-angle-down"></i>
+                </span>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="section" id="collapsibleaccessory_request{{i}}">
+              <ion-col size="12">
+                <div class="doc_category">Appliance Name : {{d.appliance_name}}</div>
+                <div class="doc_category">Accessory : {{d.accessory_name}}</div>
+              </ion-col>
+
+              <ion-col size="12">
+                <ion-text *ngIf="d.status==1"><i class="fas fa-hourglass fa-fw warning_dot"></i> <span class="warning">
+                    Request Processing</span> </ion-text>
+                <ion-text *ngIf="d.status==2"><i class="fas fa-check fa-fw active_dot"></i> <span class="active">
+                    Request Accepted</span> </ion-text>
+                <ion-text *ngIf="d.status==3"><i class="fas fa-check-double fa-fw success_dot"></i> <span
+                    class="success"> Order Delivered</span> </ion-text>
+                <ion-text *ngIf="d.status==0"><i class="fas fa-times fa-fw cancel"></i><span class="cancel"> Request
+                    canceled</span> </ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row class="opd_card_footer">
+              <ion-col size="6" class="tooltip2">
+                <ion-button expand="block" size="small" routerLink="/only-accessory">Buy Again</ion-button>
+              </ion-col>
+              <ion-col size="6" class="tooltip2" *ngIf="d.status!=3">
+                <ion-button expand="block" [disabled]="d.status!=1 && d.status!=3" size="small" color="greybutton"
+                  (click)="cancel_request(i,d.id,'accessory_request')" class="grey">
+                  Cancel
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="6" class="tooltip2" *ngIf="d.rating!=null">
+                <ion-button expand="block" fill="clear" size="small" color="dark"> Rated :
+                  <i class="fas fa-star fa-fw star_color"></i>{{d.rating}}
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="6" class="tooltip2" *ngIf="d.rating==null && d.status==3">
+                <ion-button expand="block" fill="clear" size="small" color="dark"
+                  (click)="rate_technician(i,'accessory_request',d.id)">Rate Service</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-row>
+
+      <ion-row *ngIf="accessory_request_length">
+        <ion-col size="12">
+          <div class="image_container">
+            <img src="assets/svg/no_member.svg" alt="">
+          </div>
+        </ion-col>
+        <ion-col size="12" class="not_found">
+          <ion-text>You don't have any extend accessory order placed.</ion-text>
+        </ion-col>
+      </ion-row>
+
+
+    </span>
+
+    <span class="visibility" id="visibility_extend_warranty_request">
+      <ion-row>
+        <ion-card class="skeletoncard animate_card" *ngFor="let d of extend_warranty_request; let i=index;">
+          <ion-card-content>
+            <ion-row class="cardtop">
+
+              <ion-col size="11">
+                <div class="doc_name appointment_id">Service ID : {{d.service_code}} </div>
+              </ion-col>
+              <ion-col size="1">
+                <span class="downarrow" id="downarrowextend_warranty_request{{i}}"
+                  (click)="toggle_div('extend_warranty_request'+i)">
+                  <i class="fas fa-angle-down"></i>
+                </span>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="section" id="collapsibleextend_warranty_request{{i}}">
+              <ion-col size="12">
+                <div class="doc_category">Appliance Name : {{d.appliance_name}}</div>
+                <div class="doc_category">Brand Name : {{d.brand_name}}</div>
+                <div class="doc_category">Purchase Date : {{d.date_of_purchase}}</div>
+
+              </ion-col>
+
+              <ion-col size="12">
+                <ion-text *ngIf="d.status==1"><i class="fas fa-hourglass fa-fw warning_dot"></i> <span class="warning">
+                    Request Processing</span> </ion-text>
+                <ion-text *ngIf="d.status==2"><i class="fas fa-check fa-fw active_dot"></i> <span class="active">
+                    Request Accepted</span> </ion-text>
+                <ion-text *ngIf="d.status==3"><i class="fas fa-check-double fa-fw success_dot"></i> <span
+                    class="success"> Request Completed</span> </ion-text>
+                <ion-text *ngIf="d.status==0"><i class="fas fa-times fa-fw cancel"></i><span class="cancel"> Request
+                    canceled</span> </ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row class="opd_card_footer">
+              <ion-col size="6" class="tooltip2">
+                <ion-button expand="block" size="small" routerLink="/only-accessory">Book Again</ion-button>
+              </ion-col>
+              <ion-col size="6" class="tooltip2" *ngIf="d.status!=3">
+                <ion-button expand="block" [disabled]="d.status!=1 && d.status!=3" size="small" color="greybutton"
+                  (click)="cancel_request(i,d.id,'extend_warranty_request')" class="grey">
+                  Cancel
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="6" class="tooltip2" *ngIf="d.rating!=null">
+                <ion-button expand="block" fill="clear" size="small" color="dark"> Rated :
+                  <i class="fas fa-star fa-fw star_color"></i>{{d.rating}}
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="6" class="tooltip2" *ngIf="d.rating==null && d.status==3">
+                <ion-button expand="block" fill="clear" size="small" color="dark"
+                  (click)="rate_technician(i,'extend_warranty_request',d.id)">Rate Service</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-row>
+
+      <ion-row *ngIf="extend_warranty_request_length">
+        <ion-col size="12">
+          <div class="image_container">
+            <img src="assets/svg/no_member.svg" alt="">
+          </div>
+        </ion-col>
+        <ion-col size="12" class="not_found">
+          <ion-text>You don't have any extend warranty request placed.</ion-text>
+        </ion-col>
+      </ion-row>
+
+
+    </span>
+
+
+  </ion-grid>
+  <app-footer></app-footer>
+
+
+
+  <div class="loader" *ngIf="loader_visibility">
+    <svg class="spinner" width="65px" height="65px" viewBox="0 0 50 50">
+      <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+    </svg>
+  </div>
+</ion-content>

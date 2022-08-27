@@ -1,0 +1,92 @@
+<ion-app>
+  <ion-menu side="start" contentId="main" menuClose="left" (ionWillOpen)="get_session_data()">
+    <ion-content class="menubar">
+
+      <div [ngClass]="'menu-header-bg1'">
+        <div class="header-content">
+          <div class="image_clone">
+            <span>
+                            <ion-text>{{session_data.full_name| slice:0:1 | uppercase }}</ion-text>
+
+            </span>
+           
+          </div>
+        </div>
+        <span class="username">{{session_data.full_name}} </span>
+        <span class="useremail">{{session_data.email}}</span>
+      </div>
+
+
+      <ion-list class="menu-items" lines="none">
+        <ion-menu-toggle auto-hide="false">
+
+          <ion-item routerLink="/admin-section" *ngIf="session_data.user_type=='0'">
+            <i class="fas fa-user-cog faicon fa-fw"></i>
+            <ion-text color="medium">Admin Section</ion-text>
+          </ion-item>
+          
+          <ion-item routerLink="/resellproduct">
+            <i class="fas fa-shekel-sign faicon fa-fw"></i>
+            <ion-text color="medium">Resell Products</ion-text>
+          </ion-item>
+          <ion-item routerLink="/my-profile">
+            <i class="fas fa-user-edit faicon fa-fw"></i>
+            <ion-text color="medium">My Profile</ion-text>
+          </ion-item>
+
+
+          <ion-item routerLink="/app-feedback">
+            <i class="fas fa-comment-dots faicon fa-fw"></i>
+            <ion-text color="medium">Feedback</ion-text>
+          </ion-item>
+
+          <ion-item (click)="open_playstore()">
+            <i class="fas fa-star faicon fa-fw"></i>
+            <ion-text color="medium">Rate App</ion-text>
+          </ion-item>
+
+          <ion-item (click)="socialshare()">
+            <i class="fas fa-share-alt-square faicon fa-fw"></i>
+            <ion-text color="medium">Share & Invite</ion-text>
+          </ion-item>
+
+
+          <ion-item routerLink="/aboutus">
+            <i class="fas fa-info-circle fa-fw faicon "></i>
+            <ion-text color="medium">About Us</ion-text>
+          </ion-item>
+
+          <ion-item routerLink="/termscondition">
+            <i class="fas fa-file-contract fa-fw faicon "></i>
+            <ion-text color="medium">Terms & Conditions</ion-text>
+          </ion-item>
+
+
+          <!-- <ion-item>
+            <i class="fas fa-file-alt faicon fa-fw"></i>
+            <ion-text color="medium">Terms & Conditions</ion-text>
+          </ion-item> -->
+
+
+
+          <ion-item routerLink="/contactus">
+            <i class="fas fa-phone  fa-rotate-90 faicon fa-fw"></i>
+            <ion-text color="medium">Contact Us</ion-text>
+          </ion-item>
+
+          <ion-item (click)="log_out()">
+            <i class="fas fa-sign-out-alt faicon fa-fw"></i>
+            <ion-text color="medium">Log Out</ion-text>
+          </ion-item>
+
+        </ion-menu-toggle>
+      </ion-list>
+
+
+
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main">
+
+  </ion-router-outlet>
+</ion-app>

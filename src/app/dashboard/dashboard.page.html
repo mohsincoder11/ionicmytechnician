@@ -1,0 +1,225 @@
+<ion-content class="fade_in">
+
+  <ion-row class="custom_toolbar_dashboard">
+    <ion-toolbar>
+      <ion-menu-button slot="start"></ion-menu-button>
+      <div class="title">
+        <img src="assets/logo/logo.png" alt="">
+        <!--<span class="toothicon"><i class="fas fa-tooth"></i></span> -->
+      </div>
+
+      <div slot="end" class="header_image" routerLink="/my-profile">
+        <span>
+          <ion-text>{{user_name| slice:0:1 | uppercase }}</ion-text>
+
+        </span>
+
+      </div>
+
+     
+
+    </ion-toolbar>
+  </ion-row>
+  <ion-grid>
+    <ion-slides #slides pager="false" [options]="sliderOptions" class="main_slider">
+      <ion-slide class="slide_s">
+        <ion-row>
+          <div class="div">
+            <ion-row>
+              <img src="assets/slider/icons8-washing-machine-80.png" alt="">
+            </ion-row>
+            <ion-row>
+              <ion-text>Washing Machine</ion-text>
+            </ion-row>
+            <ion-row class="no_margin">
+              <p>Over 15+ Services</p>
+            </ion-row>
+          </div>
+
+        </ion-row>
+      </ion-slide>
+      <ion-slide class="slide_s">
+        <ion-row>
+          <div class="div">
+            <ion-row>
+              <img src="assets/slider/icons8-air-conditioner-64.png" alt="">
+            </ion-row>
+            <ion-row>
+              <ion-text>Air Conditionar</ion-text>
+            </ion-row>
+            <ion-row class="no_margin">
+              <p>Over 10+ Services</p>
+            </ion-row>
+          </div>
+
+        </ion-row>
+      </ion-slide>
+      <ion-slide class="slide_s">
+        <ion-row>
+          <div class="div">
+            <ion-row>
+              <img src="assets/slider/icons8-microwave-oven-64.png" alt="">
+            </ion-row>
+            <ion-row>
+              <ion-text>Microwave Oven</ion-text>
+            </ion-row>
+            <ion-row class="no_margin">
+              <p>Over 5+ Services</p>
+            </ion-row>
+          </div>
+
+        </ion-row>
+      </ion-slide>
+      <ion-slide class="slide_s">
+        <ion-row>
+          <div class="div">
+            <ion-row>
+              <img src="assets/slider/icons8-refrigerator-64.png" alt="">
+            </ion-row>
+            <ion-row>
+              <ion-text>Refrigerator</ion-text>
+            </ion-row>
+            <ion-row class="no_margin">
+              <p>Over 12+ Services</p>
+            </ion-row>
+          </div>
+
+        </ion-row>
+      </ion-slide>
+
+    </ion-slides>
+
+    <ion-row>
+      <ion-text class="username">
+        Hello <span class="fname">{{user_name}}</span> <span><i class="fas fa-hand-paper wave"></i></span>
+      </ion-text>
+    </ion-row>
+
+
+
+    <ion-row>
+      <ion-label class="top_heading">Our Services</ion-label>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6" routerLink="/service-request">
+        <div class="colordiv pink">
+          <div class="icon">
+            <i class="fas fa-cogs fa-fw"></i>
+          </div>
+
+          <div class="description">
+            Request for Service
+          </div>
+        </div>
+
+      </ion-col>
+
+      <ion-col size="6" routerLink="/installation-request">
+        <div class="colordiv blue">
+          <div class="icon">
+            <i class="fas fa-cart-arrow-down fa-fw"></i>
+          </div>
+          <div class="description">
+            Request for Installation
+          </div>
+        </div>
+      </ion-col>
+
+
+      <ion-col size="6" routerLink="/only-accessory">
+        <div class="colordiv yellow">
+          <div class="icon">
+            <i class="fas fa-plug fa-fw"></i>
+          </div>
+          <div class="description">
+            Buy Accessories
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="6" routerLink="/extend-warrenty">
+        <div class="colordiv green">
+          <div class="icon">
+            <i class="fas fa-hand-holding-heart fa-fw"></i>
+          </div>
+          <div class="description">
+            Extend Warrenty
+          </div>
+        </div>
+      </ion-col>
+
+
+    </ion-row>
+
+    <ion-row *ngIf="resell_product_length">
+      <ion-label class="top_heading">Our Resell Products <span routerLink="/resellproduct" class="show_more">Show More
+          <i class="fas fa-angle-right fa-fw"></i></span></ion-label>
+    </ion-row>
+    <ion-row>
+      <ion-card *ngFor="let r_p of resell_product;let i=index" class="resell_card">
+        <ion-slides #slides pager="false" [options]="sliderOptions2" class="main_slider">
+          <ion-slide class="slide_s2" *ngFor="let image of r_p.images.split(',')">
+            <ion-row>
+              <ion-col size="12" class="product_image">
+                <!-- <img (click)="show_preview($event)" id="img{{i}}{{j}}" src="{{resell_image_url+'/'+(image | imagepipe) }}"
+                  alt=""> -->
+
+
+                <ion-img-viewer class="pro_img" title="{{r_p.brand_name}}" text="{{r_p.product_name}}" scheme="light"
+                  src="{{resell_image_url+'/'+(image | imagepipe) }}">
+                </ion-img-viewer>
+              </ion-col>
+              <span class="warranty_label">{{r_p.warranty}} M Warranty</span>
+            </ion-row>
+          </ion-slide>
+        </ion-slides>
+
+        <ion-card-content>
+          <ion-row class="cardtop">
+            <h2>
+              {{r_p.brand_name}}
+            </h2>
+          </ion-row>
+          <ion-row class="cardtop">
+
+            <ion-col size="8">
+              <div class="product_name"> {{r_p.brand_name}} - {{r_p.product_name}}
+
+              </div>
+            </ion-col>
+            <ion-col size="1"></ion-col>
+            <ion-col size="3">
+              <span *ngIf="r_p.status==1">
+                <ion-button (click)="place_resell_order(r_p.id,i)" size="small">Place Order</ion-button>
+              </span>
+              <span *ngIf="r_p.status==2">
+                <ion-button color="danger" disabled size="small">Sold</ion-button>
+              </span>
+            </ion-col>
+          </ion-row>
+          <ion-row class="cardtop">
+            <ion-col size="12">
+              {{r_p.description}}
+
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+
+
+    <ion-row class="last_row">
+    </ion-row>
+
+  </ion-grid>
+  <div id="internet_snackbar"> <span id="internet_error"></span></div>
+
+
+  <div class="loader" *ngIf="loader_visibility">
+    <svg class="spinner" width="65px" height="65px" viewBox="0 0 50 50">
+      <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+    </svg>
+  </div>
+  <app-footer></app-footer>
+
+</ion-content>

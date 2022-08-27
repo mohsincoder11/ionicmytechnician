@@ -1,0 +1,82 @@
+<ion-content class="main_container" [scrollEvents]="true" (ionScroll)="check_scroll($event)">
+  <ion-row class="custom_toolbar">
+    <ion-toolbar color="light_background">
+      <span class="header_span" routerLink="/dashboard">
+        <i class="fas fa-angle-left fa-fw"></i>
+      </span>
+    </ion-toolbar>
+  </ion-row>
+
+  <ion-row *ngIf="!resell_product_length">
+    <ion-col size="12">
+      <div class="image_container">
+        <img src="assets/svg/no_member.svg" alt="">
+      </div>
+    </ion-col>
+    <ion-col size="12" class="not_found">
+      <ion-text>Right now we dont have any resell products. We will update our list soon. Thanks for your patience.
+      </ion-text>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-card *ngFor="let r_p of resell_product; let i=index" class="resell_card">
+      <ion-slides #slides pager="false" [options]="sliderOptions2" class="main_slider">
+        <ion-slide class="slide_s" *ngFor="let image of r_p.images.split(',');let j=index">
+          <ion-row>
+            <ion-col size="12" class="product_image">
+              <!-- <img (click)="show_preview($event)" id="img{{i}}{{j}}" src="{{resell_image_url+'/'+(image | imagepipe) }}"
+                alt=""> -->
+
+
+              <ion-img-viewer class="pro_img" title="{{r_p.brand_name}}" text="{{r_p.product_name}}" scheme="light"
+                src="{{resell_image_url+'/'+(image | imagepipe) }}">
+              </ion-img-viewer>
+            </ion-col>
+            <span class="warranty_label">{{r_p.warranty}} M Warranty</span>
+          </ion-row>
+        </ion-slide>
+      </ion-slides>
+      <ion-card-content>
+        <ion-row class="cardtop">
+          <h2>
+            {{r_p.brand_name}}
+          </h2>
+        </ion-row>
+        <ion-row class="cardtop">
+
+          <ion-col size="8">
+            <div class="product_name"> {{r_p.brand_name}} - {{r_p.product_name}}
+
+            </div>
+          </ion-col>
+          <ion-col size="1"></ion-col>
+          <ion-col size="3">
+            <span *ngIf="r_p.status==1">
+              <ion-button (click)="place_resell_order(r_p.id,i)" size="small">Place Order</ion-button>
+            </span>
+            <span *ngIf="r_p.status==2">
+              <ion-button color="danger" disabled size="small">Sold</ion-button>
+            </span>
+          </ion-col>
+        </ion-row>
+        <ion-row class="cardtop">
+          <ion-col size="12">
+            {{r_p.description}}
+
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+  </ion-row>
+
+
+
+  <div class="loader" *ngIf="loader_visibility">
+    <svg class="spinner" width="65px" height="65px" viewBox="0 0 50 50">
+      <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+    </svg>
+  </div>
+
+</ion-content>

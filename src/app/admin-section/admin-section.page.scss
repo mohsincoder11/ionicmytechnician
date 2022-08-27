@@ -1,0 +1,113 @@
+ion-row {
+    padding: 0 4% !important;
+  }
+  
+  .top_heading {
+    font-weight: bold;
+    padding: 1.5vh 0;
+    font-size: 1.0em;
+    width: 100%;
+  }
+  
+  .colordiv {
+    // text-align: left;
+    font-weight: bold;
+    border-radius: 5px;
+    color: #fff;
+    padding: 2.5vh 2.5vh;
+    box-shadow: rgba(92, 92, 92, 0.2) 0px 5px 15px;
+  
+    .icon {
+      background-color: #fff;
+      border-radius: 10px;
+      font-size: 1.2em;
+      width: 8vh;
+      padding: 10px 0px;
+      text-align: center;
+      // width: 100%;
+    }
+    @-webkit-keyframes fade-in {
+      0% {
+        opacity: 0
+      }
+    
+      100% {
+        opacity: 1
+      }
+    }
+    
+    @keyframes fade-in {
+      0% {
+        opacity: 0
+      }
+    
+      100% {
+        opacity: 1
+      }
+    }
+    
+    .count {
+      -webkit-animation: fade-in 3s cubic-bezier(.39, .575, .565, 1.000) both;
+      animation: fade-in 3s cubic-bezier(.39, .575, .565, 1.000) both;
+      font-size: 1.5em;
+      width: 18vh;
+      top: 0;
+      right: 0;
+      position: absolute;
+      padding: 4.5vh 4vh;
+      text-align: right;
+    }
+    .description {
+      padding: 2vh 0 0 0;
+      font-size: 0.8em;
+      display: block;
+      white-space: nowrap;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 100;
+    }
+  
+  }
+  
+  .colordiv.pink {
+    .icon {
+      color: #e60889;
+    }
+  
+    background-image: linear-gradient(to right, #f04eac, #e72f9b, #d82c90, #bd0f75, #96115e) !important;
+  
+  }
+  
+  .colordiv.yellow {
+    .icon {
+      color: #fab157;
+    }
+  
+    background-image: linear-gradient(to right, #fab664, #fab157, #ffb151, #fdab47, #f89e2f) !important;
+  
+  }
+  .colordiv.red{
+    .icon {
+      color: #fc3f3f;
+    }
+    background-image: linear-gradient( to right, #fa6a6a,#fd4e4e,#fc3f3f,#fc2424, #e21313);
+  }
+  
+  .colordiv.green {
+    .icon {
+      color: #13b865;
+    }
+  
+    background-image:linear-gradient(135deg, #42e695 0%, #26e485 25%, #17e67e 50%, #0faf5f 100%);
+  
+  }
+  
+  .colordiv.blue {
+    .icon {
+      color: #0638ec;
+    }
+  
+    background-image: linear-gradient(#0638ec 0%, #0636e0 25%, #0532d4 50%, #042ec5 75%, #0429af 100%) !important;
+  
+  }

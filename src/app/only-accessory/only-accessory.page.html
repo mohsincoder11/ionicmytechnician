@@ -1,0 +1,94 @@
+<ion-content class="main_container">
+  <ion-row class="custom_toolbar">
+    <ion-toolbar color="light_background">
+      <span class="header_span" routerLink="/dashboard">
+        <i class="fas fa-angle-left fa-fw"></i>
+      </span>
+    </ion-toolbar>
+  </ion-row>
+
+
+
+  <div>
+    <form #form_register="ngForm" class="form">
+      <ion-grid>
+
+        <h2>Need accessories?</h2>
+        <p>Select and add products you need.</p>
+        <ion-row>
+
+          <ion-col size="12">
+            <ion-item lines="none">
+              <ion-label position="floating"> Select Appliance</ion-label>
+              <ion-select placeholder="Select Appliance" id="appliance_id" name="appliance_id"
+                (ionChange)="get_accessory($event)">
+                <ion-select-option *ngFor="let a of all_appliance;let i=index" value="{{a.id}}">
+                  {{a.appliance_name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="9">
+            <ion-item lines="none">
+              <ion-label position="floating"> Select Accessory</ion-label>
+              <ion-select placeholder="Select Accessory" id="accessory_id" name="accessory_id"
+                (ionChange)="select_accessory($event)">
+                <ion-select-option *ngFor="let a of filter_accessories;let i=index" value="{{a.id}}">
+                  {{a.accessory_name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3" >
+            <ion-item lines="none">
+
+              <ion-button color="success" style="margin-top: 60%;" (click)="add_product()">
+                Add
+              </ion-button>
+            </ion-item>
+          </ion-col>
+          <ion-text class="error_msg left_pad" color="danger" *ngIf="select_fields"> Select appliance and accessory</ion-text>
+          <ion-text class="error_msg left_pad" color="danger" *ngIf="add_product_cond"> Add atleast one product to place order</ion-text>
+
+          <ion-col size="12">
+            <table>
+              <tr>
+                <th>Appliance</th>
+                <th>Accessory</th>
+                <th>Remove</th>
+              </tr>
+              <tr *ngFor="let p of all_product_array;let i=index">
+                <td>{{p.appliance_name}} </td>
+                <td>{{p.accessory_name}}</td>
+                <td>
+                  <ion-button color="danger" size="small" (click)="remove_product(i)">
+                    <i class="fas fa-trash delete"></i>
+                  </ion-button>
+                </td>
+              </tr>
+            </table>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row class="last_row footerbtn">
+          <ion-col size="12">
+            <ion-button color="secondary" expand="block" (click)="place_order(form_register)">
+             Place Order
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </form>
+  </div>
+
+
+  <div class="loader" *ngIf="loader_visibility">
+    <svg class="spinner" width="65px" height="65px" viewBox="0 0 50 50">
+      <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+    </svg>
+  </div>
+
+</ion-content>

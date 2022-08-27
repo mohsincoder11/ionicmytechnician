@@ -1,0 +1,62 @@
+<ion-content class="main_container">
+  <ion-row class="custom_toolbar">
+    <ion-toolbar color="light_background">
+      <span class="header_span" routerLink="/dashboard">
+        <i class="fas fa-angle-left fa-fw"></i>
+      </span>
+    </ion-toolbar>
+  </ion-row>
+
+  <div class="image_container">
+    <img src="assets/svg/undraw_Directions_re_kjxs.svg" alt="">
+  </div>
+
+
+  <div>
+    <form #form_login="ngForm" class="form">
+      <ion-grid>
+
+        <h2>Contact Us</h2>
+        <ion-row class="main_row">
+          <ion-col size="2">
+            <p>
+              <i class="fas fa-map-marked-alt btn-success faicon fa-fw"></i>
+            </p>
+          </ion-col>
+          <ion-col size="10">
+            <b>Address </b>
+            <ion-text color="medium">Arvind Nagar colony
+              Opp Reliance mart
+              Tolichowki, Hyderabad ,500008</ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row (click)="makeCall()">
+          <ion-col size="2">
+            <p>
+              <i class="fas fa-phone phone_icon fa-rotate-90 faicon btn-primary fa-fw"></i>
+            </p>
+          </ion-col>
+          <ion-col size="10">
+            <ion-text color="medium" class="mg_top">+91 939 203 7143</ion-text>
+          </ion-col>
+        </ion-row> 
+        
+        <ion-row>
+          <ion-col size="2">
+            <p>
+              <i class="fas fa-envelope faicon btn-warning fa-fw"></i>
+            </p>
+          </ion-col>
+          <ion-col size="10">
+            <ion-text color="medium" class="mg_top">info@mytechnicians.in</ion-text>
+          </ion-col>
+        </ion-row>
+
+     
+        
+       
+
+      </ion-grid>
+    </form>
+  </div>
+</ion-content>
